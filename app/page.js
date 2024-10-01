@@ -1,101 +1,57 @@
+'use client'
+import { assets } from "@/assets/assets";
+import Carousel from "@/components/carousel/Carousel";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [value, onChange] = useState(new Date());
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const services = [
+    { id: 1, img: assets.service1, title: "Skills Development and Interships", path: "/skill-development" },
+    { id: 2, img: assets.service2, title: "Extensive Resources", path: "/resources" },
+    { id: 3, img: assets.service3, title: "Innovation and Incubation Support", path: "/incubation" },
+    { id: 4, img: assets.service4, title: "About Us", path: "/about" },
+    { id: 5, img: assets.service5, title: "Events and Workshops", path: "/events" },
+    { id: 6, img: assets.service6, title: "Community Building and Network", path: "/community" },
+  ]
+
+  return (
+    <div className="flex flex-col px-2 md:px-4 lg:px-14 divide-y divide-black gap-2">
+      <Carousel />
+      <div className="flex flex-col gap-4">
+        <h1 className="font-semibold md:text-4xl text-2xl">Our Services</h1>
+        <div className="flex flex-wrap gap-5 justify-center gap-y-5 mb-5 xl:px-5 min-h-[100vh]">
+          {services.map((service, index) => (
+            <Link key={service.id} href={service.path} className="relative flex justify-center md2:max-w-[26rem] 3xl:max-w-[34rem] 4xl:max-w-[38rem] max-w-[36rem] bg-whiteborder border rounded-md hover:shadow-[-7px_7px_0px_#949494]">
+              <Image src={service.img} className="object-contain" />
+              <span className="absolute top-5 md:text-2xl text-xl bg-opacity-40 bg-gray-800 p-2 border rounded-lg border-opacity-20 border-gray-800 font-semibold text-white m-2 ">{service.title}</span>
+            </Link>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+
+      {/* <div className="p-5 bg-gray-100 rounded-lg shadow-lg mx-auto">
+        <Calendar
+          onChange={onChange}
+          value={value}
+          className="bg-white p-3 rounded-lg shadow-md w-full"
+        />
+      </div> */}
+
+      <div className="flex flex-col gap-5">
+        <h1 className="font-semibold md:text-3xl text-xl items-center flex justify-center pt-3">Supported By</h1>
+        <div className="flex flex-wrap gap-10 justify-center py-4">
+          <Image src={assets.sp1} className="md:w-[190px] md:h-[210px] w-36 h-38" />
+          <Image src={assets.gehuLogo} className="md:w-[180px] md:h-[218px] w-36 h-38" />
+          <Image src={assets.sp2} className="md:w-[190px] md:h-[210px] w-36 h-38" />
+          <Image src={assets.sp3} className="md:w-[190px] md:h-[210px] w-36 h-38" />
+        </div>
+      </div>
+
+    </div >
   );
 }
